@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveWest_Q4</title>
+    <link href="StyleSheet.css" rel="stylesheet">
+</head>
+<body bgcolor="#b8bdc4">
+    <div align="center">
+        <h1>Alcohol Consumption Tracker</h1>
+    </div>
+    <div class = "control">
+        <div><a href="#add" style="color: #000000" class="addButton">Add a Patron</a></div>
+        <div><a href="#update" style="color: #000000" class="updateButton">Update Orders</a></div>
+        <div><a href="#remove" style="color: #000000" class="removeButton">Remove Patron</a></div>
+    </div>
+    <div class="overlay" id="add">
+        <div class="wrapper">
+            <h2>Enter Patron Details</h2>
+            <a href="#" class="close">&times;</a>
+            <div class="content">
+                <div class="container">
+                    <form action="./front.html">
+                        <label>Name</label>
+                        <input type="text">
+                        <label>ID</label>
+                        <input type="text">
+                        <label>Age</label>
+                        <input type="text">
+                        <label>Bodyweight</label>
+                        <input type="text">
+                        <input type="submit" value="Enter">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- GRID -->
+    <br><br><br>
+    <div class="parent">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+    </div>
+</body>
+</html>
