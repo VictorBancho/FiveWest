@@ -1,9 +1,9 @@
 body {
     margin: 30px;
-    background-color: #b8bdc4;
+    background-color: #88dfec;
 }
 h1 {
-    font-size: 72px;
+    font-size: 4em;
     /* font-family: Cambria; */
     background-color:aliceblue;
     border-style:solid;
@@ -15,12 +15,12 @@ h1 {
     height: fit-content;
     /* padding: 10px; */
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(8, 150px);
-    grid-template-rows: repeat(5, 150px);
+    grid-gap: 1em;
+    grid-template-columns: repeat(8, 9.5em);
+    grid-template-rows: repeat(5, 9.5em);
 }
 .parent > div {
-    padding: 10px;
+    padding: 1em;
     background-color: aliceblue;
     border-radius: 5px;
 
@@ -28,27 +28,25 @@ h1 {
     place-items: center;
 
     font-family: sans-serif;
-    font-size: 24px;
+    font-size: 1.2em;  /* to em */
     font-weight: bold;
 }
 .control{
     margin: 0 auto;
     width: fit-content;
-    height: 0 auto;
+    height: 0 auto; 
     display: grid;
-    grid-gap: 50px;
+    /* grid-gap: 50px; */
 
 }
 .control > div {
-    /* padding: 20px; */
+    padding-top: 0.9em;
     /* border-radius: 15px; */
-    
-    /* background-color: darkblue; */
-    display: grid;
-    place-items: center;
-    font-family: sans-serif;
+    /* display: grid; */
+    /* place-items: center; */
+    /* font-family: sans-serif; */
     /* font-size: 1.5em; */
-    font-weight: bolder;
+    /* font-weight: bolder; */
 }
 
 /* ADD BUTTON  */
@@ -66,7 +64,7 @@ h1 {
     padding: 10px;
 } */
 
-.overlay{
+/* .overlay{
     font-family: sans-serif;
     position: fixed;
     top: 0;
@@ -81,8 +79,8 @@ h1 {
 .overlay:target{
     visibility: visible;
     opacity: 1;
-}
-.wrapper{
+} */
+/* .wrapper{
     margin: 70px auto;
     padding: 20px;
     background: #e7e7e7;
@@ -90,12 +88,12 @@ h1 {
     width: 30%;
     position: relative;
     transition: all 5s ease-in-out;
-}
-.wrapper h2{
+} */
+/* .wrapper h2{
     margin-top: 0;
     color: #333;
-}
-.wrapper .close{
+} */
+/* .wrapper .close{
     position: absolute;
     top: 20px;
     right: 30px;
@@ -104,11 +102,11 @@ h1 {
     font-weight: bold;
     text-decoration: none;
     color: #333;
-}
-.wrapper .content{
+} */
+/* .wrapper .content{
     max-height: 30%;
     overflow: auto;
-}
+} */
 
 /* .container{
     border-radius: 5px;
@@ -145,9 +143,9 @@ input[type=text], textarea{
 
 /* UPDATE BUTTON  */
 
-.updateButton{
+/* .updateButton{ */
     /* font-size: 1em; */
-    text-align: center;
+    /* text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -157,15 +155,15 @@ input[type=text], textarea{
     height: 100%;
     border-radius: 15px;
     padding: 10px;
-}
+} */
 
 /* END UPDATE */
 
 /* REMOVE BUTTON  */
 
-.removeButton{
+/* .removeButton{ */
     /* font-size: 1em; */
-    text-align: center;
+    /* text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -175,6 +173,6 @@ input[type=text], textarea{
     height: 100%;
     border-radius: 15px;
     padding: 10px;
-}
+} */
 
 /* END REMOVE  */
