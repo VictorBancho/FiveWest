@@ -15,9 +15,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script src="{{ url_for('static', filename='javascript/disablebtn.js')}}"></script> -->
+    <!-- Ajax import -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      
+    <!-- Imports for typeahead functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/bloodhound.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.jquery.min.js"></script>           
@@ -26,447 +26,149 @@
     <div>
         <h1>Drink Link: <small>The BAC Tracker</small></h1>
     </div>
+
+    <!-- Buttons to add new and existing patron -->
     <div class = "control">
-        <!-- Button trigger modal -->
         <div class="container">
-        <div class="row">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
-            <span>Add a New Patron</span>
-        </button>
-        &nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal2">
-            Add Existing Patron
-        </button>
-        </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
+                    Add a New Patron
+                </button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal2">
+                    Add Existing Patron
+                </button>
+            </div>
         </div>
     </div>
 
-
-    <!-- Add existing Patron Modal -->
+    <!--Bootstrap Modal: Add an existing patron form -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Select an Existing Patron</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form method = "POST" action="/" id="existing_patronForm">
-                <div class="modal-body">                  
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select an Existing Patron</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method = "POST" action="/" id="existing_patronForm">
+                    <div class="modal-body">                  
                         <label>Search ID:</label>
-                        <div id="scrollable-dropdown-menu">
                         <input class="typeahead" type="text" id="my_search2" name="search" autocomplete="off" required/>
-                        </div>
-                        <!-- <button type="button" class="btn btn-primary" id="myBtn2" onclick="existingPatronDetails()">Select</button> -->
-                    
-                    <!-- <p><strong>Name:&nbsp;</strong><span id="exist-name"></span></p>
-                    <p><strong>ID:&nbsp;</strong><span id="exist-id"></span></p>
-                    <p><strong>Bodyweight:&nbsp;</strong><span id="exist-bw"></span></p>
-                    <p><strong>Sex:&nbsp;</strong><span id="exist-sex"></span></p> -->
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="addExistingPatron()">Add</button>
-                    <button type="submit" style="display: none;" id="submit-existing-btn"></button>
-                </div>
-            </form>
-          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="addExistingPatron()">Add</button>
+                        <button type="submit" style="display: none;" id="submit-existing-btn"></button>
+                    </div>
+                </form>
+            </div>
         </div>
-        </div>
+    </div>
 
-
-  <!-- Add new Patron Modal -->
+  <!--Bootstrap Modal: Add new Patron form -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add a New Patron</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method = "POST" action="/" id="patronForm">
-            <div class="modal-body">
-                <label>Name</label>
-                <input type="text" name="patron_name" required>
-                <label>ID</label>
-                <input type="text" name="patron_id" id="form_id" required>
-                <label>Bodyweight</label>
-                <input type="text" name="patron_bodyweight" id="form_bw" required>
-                <label>Sex</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="patron_sex" id="flexRadioDefault1" value="Male" required>
-                    <p>Male</p>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="patron_sex" id="flexRadioDefault2" value="Female" required>
-                    <p>Female</p>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a New Patron</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <form method = "POST" action="/" id="patronForm">
+                    <div class="modal-body">
+                        <label>Name</label>
+                        <input type="text" name="patron_name" required>
+                        <label>ID</label>
+                        <input type="text" name="patron_id" id="form_id" required>
+                        <label>Bodyweight</label>
+                        <input type="text" name="patron_bodyweight" id="form_bw" required>
+                        <label>Sex</label>
+                        <!-- Bootstrap radio check boxes: Male or Female -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="patron_sex" id="flexRadioDefault1" value="Male" required>
+                            <p>Male</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="patron_sex" id="flexRadioDefault2" value="Female" required>
+                            <p>Female</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="add-new-btn" onclick="check_unique()">Save</button>
+                        <!-- Browser prompts user to fill required fields when submit button used -->
+                        <button type="submit" style="display: none;" id="submit-new-btn"></button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="add-new-btn" onclick="check_unique()">Save</button>
-                <button type="submit" style="display: none;" id="submit-new-btn"></button>
-            </div>
-        </form>
-      </div>
-    </div>
-    </div>
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-5">1</div>
-            <div class="col-5">2</div>
-            <div class="col">3</div>
-            <div class="col">4</div>
-            <div class="col">5</div>
         </div>
-    </div> -->
-    <!-- GRID -->
+    </div>
     <br>
+    <!-- Grid tile elements which carry patron details and can be clicked on to produce a patron details modal -->
     <ul class="list-group">
         <div class="parent">
-        {% for patron in patrons %}
-            <div id="tile{{patron.id}}" type="button" onclick="myFunction('{{patron.id}}')" type="submit" name="modalID" 
+            {% for patron in patrons %}
+            <div id="tile{{patron.id}}" type="button" onclick="openModal('{{patron.id}}')" type="submit" name="modalID" 
                     value="{{patron.id}}" class="list-group-item" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">
                 <div position="absolute">
-                <div class="position-relative" style="text-align:center;">
-                    <form method = "POST" action="/">
-                        <input type="hidden" name="id" value="{{patron.id}}">
-                        <input type="submit" class="btn btn-outline-secondary btn-sm" value="&times;" name="removeID">
-                    </form>
-                </div>
-                <!-- Remove possibly -->
-                <p id="tile-text{{patron.id}}" style="text-align:center;">ID: {{patron.id}}<br>{{patron.name}}<br>
-                    <span id="bloodAlc{{patron.id}}">0 %</span></p>
+                    <div class="position-relative" style="text-align:center;">
+                        <form method = "POST" action="/">
+                            <input type="hidden" name="id" value="{{patron.id}}">
+                            <input type="submit" class="btn btn-outline-secondary btn-sm" value="&times;" name="removeID">
+                        </form>
+                    </div>
+                    <p id="tile-text{{patron.id}}" style="text-align:center;">
+                        ID: {{patron.id}}<br>{{patron.name}}<br><span id="bloodAlc{{patron.id}}">0 %</span>
+                    </p>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </ul>
-                <!-- Patron Modal -->
-                <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Patron Details</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body" id="details">
-                        </div>
-                        <div class="container">
-                        <div class="modal-body" id="bac-data">
-                            <strong>Blood Alcohol Content:&nbsp</strong>
-                            <span id="bac" >0</span>&nbsp%<br>
-                            <strong>Alcohol Capacity:&nbsp</strong>
-                            <span id="bac-capacity" >0</span>&nbsp%
-                            
-                        </div>
-                        </div>
-                        <div class="modal-footer">                      
-                            <label>Add a Drink:</label>
-                            <div id="scrollable-dropdown-menu">
-                            <input class="typeahead" type="text" id="my_search" name="search" autocomplete="off"/>
-                            </div>
-                            <button id="myBtn" class="btn btn-primary" onclick="addOrder()">Add</button>
-                        </div>
-                        <div class="modal-body">
-                        <h5>Order History</h5>
-                        <div id="slideContainer">
-                            
-                        </div>
-                        </div>
-                    </div>
+                
+    <!-- Bootstrap Modal: Patron details -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Patron Details</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="details">
+                </div>
+                <div class="container">
+                    <div class="modal-body" id="bac-data">
+                        <strong>Blood Alcohol Content:&nbsp</strong>
+                        <span id="bac" >0</span>&nbsp%<br>
+                        <strong>Alcohol Capacity:&nbsp</strong>
+                        <span id="bac-capacity" >0</span>&nbsp%
                     </div>
                 </div>
-                <div>
-                    <form method="POST" action="/reset">
-                    <button type="submit" id="reset" class="btn btn-primary">Reset All App Data</button>
-                    </form>
+                <div class="modal-footer">                      
+                    <label>Add a Drink:</label>
+                    <div id="scrollable-dropdown-menu">
+                        <input class="typeahead" type="text" id="my_search" name="search" autocomplete="off"/>
+                    </div>
+                    <button id="myBtn" class="btn btn-primary" onclick="addOrder()">Add</button>
                 </div>
-    <script>
-    const limit = 0.15
-    function addExistingPatron(){
-        search_val = document.getElementById('my_search2').value
-        if (search_val==""){
-            document.getElementById('submit-existing-btn').click();
-            return
-        }
-        id = search_val.split(',')[0];
-        $.ajax({
-            type: "POST",
-            url: "/add_existing_patron",
-            data: JSON.stringify(id),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(bool){
-                if (bool['success']){
-                    document.getElementById("submit-existing-btn").click();
-                }
-                else if (bool['exists']) {
-                    alert('Patron is already present in bar!');
-                }
-                else {
-                    alert('Patron ID does not exist!');
-                }
-            }
-        })
-    }
-
-    function check_unique(id){
-        id = document.getElementById('form_id').value;
-        if (id==""){
-            document.getElementById('submit-new-btn').click();
-            return
-        }
-        else if (isNaN(id)){
-            alert('ID must be a number!');
-            return
-        }
-        else if (isNaN(document.getElementById('form_bw').value)){
-            alert('Bodyweight must be a number!');
-            return
-        }
-        $.ajax({
-            type: "POST",
-            url: "/check_unique_id",
-            data: JSON.stringify(id),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(bool){
-                if (bool['unique']){
-                    document.getElementById('submit-new-btn').click();
-                }
-                else {
-                    alert('Patron ID already exists!')
-                }
-            }
-        })
-    }
-    function removeOrder(orderID){
-        $.ajax({
-            type: "POST",
-            url: "/remove_order",
-            data: JSON.stringify(orderID),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(orders){
-                listGen(orders)
-                bacDecay()
-            }
-        })
-    }
-    function listGen(dict){
-        var keys = Object.keys(dict)
-        var str = '<ul class="list-group">'
-            for (let i = keys.length-6; i >=0; i--) {
-                str += '<li class="list-group-item">'+ keys[i] +"  |  " + dict[keys[i]] + '<input type="submit"'
-                    +' class="btn btn-outline-secondary btn-sm pull-right" style="float: right;"'
-                    +' value="&times;" name="removeOrder" onclick="removeOrder('+keys[i].toString()+')"></li>';
-            };
-        str += '</ul>';
-        document.getElementById("slideContainer").innerHTML = str;
-        document.getElementById("details").innerHTML = 
-                            `<div class="container">
-                                <div class="row">
-                                  <div class="col">Name: `+dict.patronName+`</div>
-                                  <div class="col">ID: `+dict.patronID.toString()+`</div>
-                                  <div class="w-100"></div>
-                                  <div class="col">Sex: `+dict.patronSex+`</div>
-                                  <div class="col">Bodyweight: `+dict.patronBW.toString()+` kg</div>
-                                </div>
-                              </div>`;
-        document.getElementById("myBtn").setAttribute("onclick", "addOrder("+dict.patronID.toString()+")");
-        document.getElementById("my_search").value = "";
-        patron_bac = parseFloat((dict.bloodAlc*100/limit).toFixed(0)).toString()
-        document.getElementById("bloodAlc"+dict.patronID.toString()).innerHTML = patron_bac + ' %' //TOfixed
-        document.getElementById("bac").innerHTML = parseFloat(dict.bloodAlc.toFixed(4)).toString(); //toFIXED
-        document.getElementById("bac-capacity").innerHTML = patron_bac;
-        if (dict.bloodAlc < limit) {
-            document.getElementById("bac-data").style = "color:black;";
-            document.getElementById("tile-text"+dict.patronID.toString()).style = "color:black;text-align:center;";
-            // document.getElementById("bac").style = "color:black;";
-            document.getElementById("bloodAlc"+dict.patronID.toString()).style = "color:black;text-align:center;";
-        }
-        else {
-            document.getElementById("bac-data").style = "color:red;";
-            document.getElementById("tile-text"+dict.patronID.toString()).style = "color:red;text-align:center;";
-            // document.getElementById("bac").style = "color:red;";
-            document.getElementById("bloodAlc"+dict.patronID.toString()).style = "color:red;text-align:center;";
-        }
-    };
-    function myFunction(id) {
-        $.ajax({
-            type: "POST",
-            url: "/process_modal",
-            data: JSON.stringify(id),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(orders){
-                listGen(orders)
-            }
-        })
-    }
-    var input = document.getElementById("my_search");
-    input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("myBtn").click();
-    }
-    });
-function addOrder(id){
-    drink = document.getElementById('my_search').value;
-    if (drink == ""){
-        alert("Please fill in a drink!")
-        return
-    }
-    var drink_data = null;
-    $.ajax({
-            type: "GET",
-            url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+drink,
-            // contentType: "application/json",
-            dataType: 'json',
-            'data': { 'request': "", 'target': 'arrange_url', 'method': 'method_target' },
-            success: function(data){
-                // drink_data = data.drinks[0];
-                if (data.drinks !== null && drink.toLowerCase() === data.drinks[0].strDrink.toLowerCase()) {
-                    data.drinks[0]['patronID'] = id;
-                    updateOrder(data.drinks[0]);
-                }
-                else {
-                    alert("Drink does not exist!");
-                }
-            }
-        })
-}
-function updateOrder(order){
-    $.ajax({
-            type: "POST",
-            url: "/add_order",
-            data: JSON.stringify(order),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(orders){
-                if (orders['success']==='non-std'){
-                    alert('Non-standard drink type or ingredient format.')
-                }
-                else{
-                    listGen(orders);
-                }                
-        }
-    })
-}
-function bacDecay(){
-    $.ajax({
-            type: "GET",
-            url: "/alcohol_decay",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(bac_dict){
-                var keys = Object.keys(bac_dict)
-                for (let i=0; i<keys.length; i++){
-                    bac = parseFloat((bac_dict[keys[i]]*100/limit).toFixed(0));
-                    if (bac < 0){
-                        document.getElementById("bloodAlc"+keys[i].toString()).innerHTML = '0 %';
-                    }
-                    else{
-                        document.getElementById("bloodAlc"+keys[i].toString()).innerHTML = bac.toString() + ' %';
-                    }
-                    if (bac < 100){
-                        document.getElementById("tile-text"+keys[i].toString()).style = "color:black;";
-                        document.getElementById("bloodAlc"+keys[i].toString()).style = "color:black;";
-                    }
-                    else{
-                        document.getElementById("tile-text"+keys[i].toString()).style = "color:red;";
-                        document.getElementById("bloodAlc"+keys[i].toString()).style = "color:red;";
-                    }
-                    // j = 0;
-                    // while( $('#tile'+keys[i].toString()+' div').height() > $('#tile'+keys[i].toString()).height() && j<10) {
-                    //     j++;
-                    //     $('#tile-text'+keys[i].toString()).css('font-size', (parseInt($('#tile-text'+keys[i].toString()).css('font-size')) - 0.1) + "px" );
-                    // }       
-                }
-        }
-    })
-}
-bacDecay()
-setInterval(bacDecay, 60000); // increase
-
-var countries_suggestions = new Bloodhound({
-    datumTokenizer: function (datum) {
-        return Bloodhound.tokenizers.whitespace(datum.strDrink); // see its meaning above
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace, // see its meaning above
-    remote: {
-        url: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=%QUERY',
-        wildcard: '%QUERY',                    // %QUERY will be replace by users input in
-        transform: function(response){
-            return response.drinks
-        }
-    }
-  });
-
-$('#my_search').typeahead({
-  highlight: true,
-  minLength: 1
-},
-{
-  name: '',
-  source: countries_suggestions,   // Bloodhound instance is passed as the source
-  display: function(item) {        // display: 'name' will also work
-        return item.strDrink;
-    },
-  limit: 10,
-  templates: {
-        suggestion: function(item) {
-            return '<div>'+ item.strDrink +'</div>';
-        },
-        pending: function (query) {
-            return '<div>No result...</div>';
-        }
-    }
-});
-var patrons_suggestions = new Bloodhound({
-    datumTokenizer: function (datum) {
-        return Bloodhound.tokenizers.whitespace(datum.id); // see its meaning above
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace, // see its meaning above
-    remote: {
-        url: '/fetch_patrons/%QUERY',               // %QUERY will be replace by users input in
-        wildcard: '%QUERY', 
-        // transform: function(response){
-        //     return response.drinks
-        // }
-    }
-  });
-
-$('#my_search2').typeahead({
-  highlight: true,
-  minLength: 1
-},
-{
-  name: '',
-  source: patrons_suggestions,   // Bloodhound instance is passed as the source
-  display: function(item) {        // display: 'name' will also work
-        return item.id;
-    },
-  limit: 10,
-  templates: {
-        suggestion: function(item) {
-            return '<div>'+ item.id + ',  ' + item.name+'</div>';
-        },
-        pending: function (query) {
-            return '<div>No result...</div>';
-        }
-    }
-});
-
-    </script>
+                <div class="modal-body">
+                    <h5>Order History</h5>
+                    <div id="slideContainer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form method="POST" action="/reset">
+            <button type="submit" id="reset" class="btn btn-primary">Reset All App Data</button>
+        </form>
+    </div>
+    <!-- Local javascript file -->
+    <script src="{{ url_for('static', filename='javascript/control.js')}}"></script>
 </body>
 </html>

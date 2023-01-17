@@ -1,10 +1,9 @@
 body {
-    margin: 30px;
+    margin: 20px;
     background-color: #88dfec;
 }
 h1 {
     font-size: 4em;
-    /* font-family: Cambria; */
     background-color:aliceblue;
     border-style:solid;
     text-align: center;
@@ -13,7 +12,6 @@ h1 {
     margin: 0 auto;
     width: fit-content;
     height: fit-content;
-    /* padding: 10px; */
     display: grid;
     grid-gap: 1em;
     grid-template-columns: repeat(8, 9.5em);
@@ -28,7 +26,7 @@ h1 {
     place-items: center;
 
     font-family: sans-serif;
-    font-size: 1.2em;  /* to em */
+    font-size: 1.3em;
     font-weight: bold;
 }
 .control{
@@ -36,83 +34,12 @@ h1 {
     width: fit-content;
     height: 0 auto; 
     display: grid;
-    /* grid-gap: 50px; */
 
 }
 .control > div {
     padding-top: 0.9em;
-    /* border-radius: 15px; */
-    /* display: grid; */
-    /* place-items: center; */
-    /* font-family: sans-serif; */
-    /* font-size: 1.5em; */
-    /* font-weight: bolder; */
 }
 
-/* ADD BUTTON  */
-/* .addButton{ */
-    /* font-size: 1em; */
-    /* text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-    background-color: aliceblue;
-    width: 100%;
-    display: block;
-    height: 100%;
-    border-radius: 15px;
-    padding: 10px;
-} */
-
-/* .overlay{
-    font-family: sans-serif;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.8);
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-}
-.overlay:target{
-    visibility: visible;
-    opacity: 1;
-} */
-/* .wrapper{
-    margin: 70px auto;
-    padding: 20px;
-    background: #e7e7e7;
-    border-radius: 5px;
-    width: 30%;
-    position: relative;
-    transition: all 5s ease-in-out;
-} */
-/* .wrapper h2{
-    margin-top: 0;
-    color: #333;
-} */
-/* .wrapper .close{
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    transition: all 200ms;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
-} */
-/* .wrapper .content{
-    max-height: 30%;
-    overflow: auto;
-} */
-
-/* .container{
-    border-radius: 5px;
-    background-color: #e7e7e7;
-    padding: 20px;
-} */
 form label{
     text-transform: uppercase;
     font-weight: 500;
@@ -128,51 +55,3 @@ input[type=text], textarea{
     margin-bottom: 16px;
     resize: vertical;
 }
-/* input[type="submit"]{
-    background-color: #413b3b;
-    color: #fff;
-    padding: 15px 50px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 3px; 
-} */
-/* END ADD  */
-
-/* UPDATE BUTTON  */
-
-/* .updateButton{ */
-    /* font-size: 1em; */
-    /* text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-    background-color: aliceblue;
-    width: 100%;
-    display: block;
-    height: 100%;
-    border-radius: 15px;
-    padding: 10px;
-} */
-
-/* END UPDATE */
-
-/* REMOVE BUTTON  */
-
-/* .removeButton{ */
-    /* font-size: 1em; */
-    /* text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-    background-color: aliceblue;
-    width: 100%;
-    display: block;
-    height: 100%;
-    border-radius: 15px;
-    padding: 10px;
-} */
-
-/* END REMOVE  */
