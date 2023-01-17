@@ -8,7 +8,7 @@ from threading import Timer
 # Initialise Flask API instance and connect it to database
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret key'
-app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bar2.db' 
+app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bar.db' 
 
 db = SQLAlchemy(app)
 
@@ -424,10 +424,10 @@ def convertAmount(strAmnt):
         measure = float(arr[0])   #standard decimal
     return measure * scale
 
-# Launch open webapp upon Flask initialising
+# Launch open webapp upon Flask initialising - does not work through Docker
 def open_browser():
       webbrowser.open_new("http://127.0.0.1:5000")
 
 if __name__ == "__main__":
-    # Timer(1, open_browser).start() #uncomment
-    app.run(debug=True)
+    Timer(1, open_browser).start()
+    app.run(debug=False)
