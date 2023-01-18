@@ -17,5 +17,5 @@ then
 
 `sudo docker compose up`
 
-where the user will be required to go to 'http://127.0.0.1:5000' (this link will usually be shown in the termninal).
+where the user will be required to go to 'http://127.0.0.1:5000' (this link will usually be shown in the terminal).
 More details are presented in question 4 of the pdf file.
